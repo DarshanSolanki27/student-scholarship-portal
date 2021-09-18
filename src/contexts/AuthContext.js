@@ -13,7 +13,7 @@ export function useUpdateAuth() {
 
 export default function AuthProvider({ children }) {
   const [isAuth, setIsAuth] = useState(
-    localStorage.getItem("torch_at") !== null
+    localStorage.getItem("wsdc_at") !== null
   );
 
   return (

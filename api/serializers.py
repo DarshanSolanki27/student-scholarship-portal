@@ -82,6 +82,30 @@ class StudentSignupSerializer(ModelSerializer):
         return user
 
 
+class AdminSerializer(ModelSerializer):
+    class Meta:
+        model = Admin
+        fields = ['id', 'username', 'is_admin']
+        extra_kwargs = {
+            'username': {
+                'max_length': 30,
+                'label': 'Username'
+            },
+        }
+
+
+class StudentSerializer(ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['id', 'username', 'is_admin']
+        extra_kwargs = {
+            'username': {
+                'max_length': 30,
+                'label': 'Username'
+            },
+        }
+
+
 class ScholarshipSerializer(ModelSerializer):
     class Meta:
         model = Scholarship

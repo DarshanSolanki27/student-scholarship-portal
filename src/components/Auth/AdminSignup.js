@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Alert, Button, Form, Jumbotron } from "react-bootstrap";
 
-import { useAuth } from "../contexts/AuthContext";
-import { NO_TOKEN_OPTIONS } from "../utils/requestOptions";
+import { useAuth } from "../../contexts/AuthContext";
+import { NO_TOKEN_OPTIONS } from "../../utils/requestOptions";
 
 export default function AdminSignup() {
   const axios = require("axios");
@@ -15,7 +15,7 @@ export default function AdminSignup() {
   }
 
   const [request, setRequest] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const [msg, setMsg] = useState({
@@ -52,8 +52,8 @@ export default function AdminSignup() {
           setMsg({
             show: true,
             error:
-              error.response.data["username"] !== undefined
-                ? ["Username taken."]
+              error.response.data["email"] !== undefined
+                ? ["email taken."]
                 : error.response.data["password"],
           });
       });
@@ -71,16 +71,15 @@ export default function AdminSignup() {
           <h2>Signup</h2>
         </Form.Row>
         <Form.Group className="d-flex p-2">
-          <Form.Label className="m-2">Username:</Form.Label>
+          <Form.Label className="m-2">Email:</Form.Label>
           <Form.Control
-            id="username"
+            id="email"
             type="text"
-            value={request.username}
+            value={request.email}
             onChange={handleInputChange}
             required
           />
         </Form.Group>
-        <Form.Text>Username cannot be changed later</Form.Text>
         <Form.Group className="d-flex p-2">
           <Form.Label className="m-2">Password:</Form.Label>
           <Form.Control
