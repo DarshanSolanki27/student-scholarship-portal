@@ -33,14 +33,14 @@ SPECIALIZATION_CHOICES = [
 
 
 class Admin(User):
-    isAdmin = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=True, blank=True)
 
     class Meta:
         verbose_name = 'Admin'
 
 
 class Student(User):
-    isAdmin = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False, blank=True)
 
     class Meta:
         verbose_name = 'Student'

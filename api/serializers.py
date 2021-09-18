@@ -1,4 +1,5 @@
 from django.contrib.auth import password_validation
+from rest_framework import serializers
 from rest_framework.serializers import (ModelSerializer, ValidationError)
 
 from .models import (Admin, Student, Scholarship, Application)
@@ -73,6 +74,8 @@ class StudentSignupSerializer(ModelSerializer):
         return value
 
     def create(self, validated_data):
+        if validated_data.get('is_admin') is not None:
+            validated_data.pop('is_admin')
         user = Student.objects.create_user(
             username=validated_data['email'], password=validated_data['password'])
 
@@ -113,4 +116,29 @@ class ApplicationSerializer(ModelSerializer):
         }
 
     def create(self, validated_data):
+        if validated_data.get('status') is not None:
+            validated_data.pop('status')
+
         return Application.objects.create(**validated_data)
+
+
+class ApplicationUpdateSerializer(ModelSerializer):
+    admin = serializers.IntegerField()
+
+    class Meta:
+        model = Application
+        fields = ['id', 'admin', 'status']
+
+    def validate_admin(self, admin):
+        is_admin = Admin.objects.filter(id=admin)
+
+        if not is_admin:
+            raise ValidationError({'Permission denied': 'Admin only feature'})
+
+        return admin
+
+    def update(self, instance, validated_data):
+        instance.status = validated_data.get('status', instance.status)
+        instance.save()
+
+        return instance
