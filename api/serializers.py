@@ -38,7 +38,7 @@ class AdminSignupSerializer(ModelSerializer):
 
     def create(self, validated_data):
         user = Admin.objects.create_user(
-            username=validated_data['email'], password=validated_data['password'])
+            username=validated_data['email'], email=validated_data['email'], password=validated_data['password'])
 
         return user
 
@@ -77,7 +77,7 @@ class StudentSignupSerializer(ModelSerializer):
         if validated_data.get('is_admin') is not None:
             validated_data.pop('is_admin')
         user = Student.objects.create_user(
-            username=validated_data['email'], password=validated_data['password'])
+            username=validated_data['email'], email=validated_data['email'], password=validated_data['password'])
 
         return user
 
@@ -100,6 +100,9 @@ class ScholarshipSerializer(ModelSerializer):
         }
 
     def create(self, validated_data):
+        if validated_data.get('program') != 'M':
+            validated_data.pop('specialization')
+
         return Scholarship.objects.create(**validated_data)
 
 
@@ -116,6 +119,23 @@ class ApplicationSerializer(ModelSerializer):
         }
 
     def create(self, validated_data):
+        cutoffs = validated_data.get('scholarship')
+
+        if Student.objects.filter(id=validated_data.get('student').id) is None:
+            raise ValidationError({'unauthorized': 'You are not registered'})
+        if validated_data.get('caste') != cutoffs.caste:
+            raise ValidationError({'caste': 'Invalid caste'})
+        if validated_data.get('program') != cutoffs.program:
+            raise ValidationError({'program': 'Invalid program'})
+        if validated_data.get('department') != cutoffs.department:
+            raise ValidationError({'department': 'Invalid department'})
+        if validated_data.get('gender') != cutoffs.gender:
+            raise ValidationError({'gender': 'Invalid gender'})
+        if validated_data.get('program') == 'M' and validated_data.get('specialization') != cutoffs.specialization:
+            raise ValidationError({'specialization': 'Invalid Specialization'})
+
+        if validated_data.get('cgpa') < cutoffs.cgpa:
+            raise ValidationError({'cgpa': 'CGPA too low'})
         if validated_data.get('status') is not None:
             validated_data.pop('status')
 

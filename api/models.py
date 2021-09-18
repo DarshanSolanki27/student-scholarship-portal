@@ -66,8 +66,8 @@ Eligibility :
 
 class Scholarship(models.Model):
     instructions = models.TextField()
-    opening_date = models.DateTimeField()
-    closing_date = models.DateTimeField()
+    opening_date = models.DateField(blank=True)
+    closing_date = models.DateField(blank=True)
     caste = models.CharField(choices=CASTE_CHOICES, max_length=3)
     program = models.CharField(choices=PROGRAM_CHOICES, max_length=1)
     department = models.CharField(choices=DEPARMENT_CHOICES, max_length=3)
@@ -90,6 +90,7 @@ class Application(models.Model):
         choices=SPECIALIZATION_CHOICES, blank=True, max_length=3)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=1)
     cgpa = models.DecimalField(default=0.0, decimal_places=2, max_digits=4)
+    rejection = models.CharField(default=None, max_length=100)
 
     class Meta:
         ordering = ['-applied']
