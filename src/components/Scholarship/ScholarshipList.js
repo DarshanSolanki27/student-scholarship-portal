@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { Alert, Jumbotron, Spinner } from "react-bootstrap";
 
 import { authOptions } from "../../utils/requestOptions";
@@ -7,7 +6,6 @@ import ScholarshipCard from "./ScholarshipCard";
 
 export default function ScholarshipList() {
   const axios = require("axios");
-  const history = useHistory();
   const [scholarships, setScholarships] = useState([]);
   const [loading, setLoading] = useState(true);
 

@@ -137,6 +137,9 @@ class ApplicationSerializer(ModelSerializer):
                   'program', 'department', 'specialization', 'gender', 'cgpa']
 
         extra_kwargs = {
+            'applied': {
+                'format': "%d-%m-%Y %H:%M:%S"
+            },
             'specialization': {
                 'required': False,
             }

@@ -9,6 +9,8 @@ import AuthProvider from "./contexts/AuthContext";
 import Home from "./components/Home";
 import ScholarshipList from "./components/Scholarship/ScholarshipList";
 import AddScholarship from "./components/Scholarship/AddScholarship";
+import AdminApplication from "./components/Application/AdminApplication";
+import StudentApplication from "./components/Application/StudentApplication";
 
 function App() {
   return (
@@ -23,6 +25,16 @@ function App() {
           <Route exact path="/login" component={AdminLogin} />
           <Route exact path="/scholarship" component={ScholarshipList} />
           <Route exact path="/add-scholarship" component={AddScholarship} />
+          <Route
+            exact
+            path="/application"
+            component={
+              localStorage.getItem("wsdc_user_data") !== null &&
+              localStorage.getItem("wsdc_user_data")["is_admin"] === true
+                ? AdminApplication
+                : StudentApplication
+            }
+          />
           <Route path="*">{<h1>404 Not found</h1>}</Route>
         </Switch>
       </BrowserRouter>

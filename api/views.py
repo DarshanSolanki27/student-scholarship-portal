@@ -123,9 +123,15 @@ Application views
 """
 
 
+class ApplicationListView(ListAPIView):
+    queryset = Application.objects.all()
+    serializer_class = ApplicationSerializer
+
+
 class StudentApplicationListView(ListAPIView):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
+    lookup_field = 'id'
 
     def get_queryset(self):
         return self.queryset.filter(student=self.kwargs['id'])

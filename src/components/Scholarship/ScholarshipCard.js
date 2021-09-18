@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import { Button, Card } from "react-bootstrap";
 
 const CASTE = {
@@ -39,21 +38,28 @@ export default function ScholarshipCard({ scholarship }) {
       <Card.Header>
         <h5>{scholarship.instructions}</h5>
         <div className="d-flex">
-          <div className="p-1 flex-fill">Opening date: {scholarship.opening_date}</div>
-          <div className="p-1 flex-fill">Closing date: {scholarship.closing_date}</div>
+          <div className="p-1 flex-fill">
+            Opening date: {scholarship.opening_date}
+          </div>
+          <div className="p-1 flex-fill">
+            Closing date: {scholarship.closing_date}
+          </div>
         </div>
-        <Card.Subtitle className="text-muted"></Card.Subtitle>
-        <Button
-          as="a"
-          href={
-            scholarship.url !== null
-              ? scholarship.url
-              : `/scholarship/${scholarship.id}`
-          }
-          variant="danger"
-        >
-          Apply
-        </Button>
+
+        {JSON.parse(localStorage.getItem("wsdc_user_data"))["is_admin"] ===
+          false && (
+          <Button
+            as="a"
+            href={
+              scholarship.url !== null
+                ? scholarship.url
+                : `/scholarship/${scholarship.id}`
+            }
+            variant="danger"
+          >
+            Apply
+          </Button>
+        )}
       </Card.Header>
 
       <Card.Body style={{ width: "98%" }}>
