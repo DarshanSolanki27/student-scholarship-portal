@@ -7,9 +7,10 @@ from rest_framework_simplejwt.views import (
 from .views import (
     AdminRetrieveView,
     AdminSignupView,
+    ScholarshipListCreateView,
+    ScholarshipRetrieveView,
     StudentApplicationListView,
     ScholarshipApplicationListCreateView,
-    ScholarshipListView,
     StudentRetrieveView,
     StudentSignupView,
     UpdateApplicationStatusView
@@ -26,7 +27,9 @@ urlpatterns = [
     path('student/<str:username>', StudentRetrieveView.as_view()),
     path('student/<int:id>/application', StudentApplicationListView.as_view()),
 
-    path('scholarship', ScholarshipListView.as_view()),
+    path('scholarship', ScholarshipListCreateView.as_view()),
+    path('scholarship/<int:id>', ScholarshipRetrieveView.as_view()),
+
     path('scholarship/<int:id>',
          ScholarshipApplicationListCreateView.as_view()),
 

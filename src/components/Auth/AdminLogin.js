@@ -54,6 +54,8 @@ export default function AdminLogin() {
         history.push("/");
       })
       .catch((error) => {
+        localStorage.removeItem("wsdc_at");
+        localStorage.removeItem("wsdc_rt");
         console.log(error);
         setMsg({
           show: true,

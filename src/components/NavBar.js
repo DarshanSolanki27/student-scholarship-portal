@@ -18,7 +18,7 @@ export default function NavBar() {
   };
 
   return (
-    <Navbar variant="danger" style={{ backgroundColor: "purple" }}>
+    <Navbar variant="danger" style={{ backgroundColor: "purple", width: "100rem" }}>
       <Nav className="d-flex justify-content-center p-3">
         <Nav.Item style={{ color: "white" }}>
           <Nav.Link href="/">Home</Nav.Link>

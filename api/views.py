@@ -4,9 +4,9 @@ from rest_framework.generics import (
     ListAPIView, ListCreateAPIView, RetrieveAPIView, UpdateAPIView)
 from rest_framework.permissions import (
     AllowAny,
-    IsAdminUser,
     IsAuthenticated,
 )
+
 from rest_framework.status import (
     HTTP_201_CREATED, HTTP_400_BAD_REQUEST)
 
@@ -103,9 +103,19 @@ Scholarship views
 """
 
 
-class ScholarshipListView(ListCreateAPIView):
+class ScholarshipListCreateView(ListCreateAPIView):
     queryset = Scholarship.objects.all()
     serializer_class = ScholarshipSerializer
+    lookup_field = 'id'
+
+    def get_permissions(self):
+        return [IsAuthenticated(), ]
+
+
+class ScholarshipRetrieveView(RetrieveAPIView):
+    queryset = Scholarship.objects.all()
+    serializer_class = ScholarshipSerializer
+    lookup_field = 'id'
 
 
 """

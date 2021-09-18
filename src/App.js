@@ -7,6 +7,8 @@ import StudentLogin from "./components/Auth/StudentLogin";
 import NavBar from "./components/NavBar";
 import AuthProvider from "./contexts/AuthContext";
 import Home from "./components/Home";
+import ScholarshipList from "./components/Scholarship/ScholarshipList";
+import AddScholarship from "./components/Scholarship/AddScholarship";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route exact path="/signup" component={AdminSignup} />
           <Route exact path="/student-login" component={StudentLogin} />
           <Route exact path="/login" component={AdminLogin} />
+          <Route exact path="/scholarship" component={ScholarshipList} />
+          <Route exact path="/add-scholarship" component={AddScholarship} />
           <Route path="*">{<h1>404 Not found</h1>}</Route>
         </Switch>
       </BrowserRouter>

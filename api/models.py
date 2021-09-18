@@ -66,8 +66,8 @@ Eligibility :
 
 class Scholarship(models.Model):
     instructions = models.TextField()
-    opening_date = models.DateField(blank=True)
-    closing_date = models.DateField(blank=True)
+    opening_date = models.DateField(blank=True, null=True)
+    closing_date = models.DateField(blank=True, null=True)
     caste = models.CharField(choices=CASTE_CHOICES, max_length=3)
     program = models.CharField(choices=PROGRAM_CHOICES, max_length=1)
     department = models.CharField(choices=DEPARMENT_CHOICES, max_length=3)

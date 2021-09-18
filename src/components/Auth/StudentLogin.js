@@ -54,6 +54,8 @@ export default function StudentLogin() {
         history.push("/");
       })
       .catch((error) => {
+        localStorage.removeItem("wsdc_at");
+        localStorage.removeItem("wsdc_rt");
         console.log(error);
         setMsg({
           show: true,
@@ -105,11 +107,7 @@ export default function StudentLogin() {
           <Alert variant="danger">{msg.error["detail"]}</Alert>
         )}
 
-        <Button
-          type="submit"
-          className="m-2"
-          variant="success"
-        >
+        <Button type="submit" className="m-2" variant="success">
           Login
         </Button>
 
