@@ -18,7 +18,10 @@ export default function NavBar() {
   };
 
   return (
-    <Navbar variant="danger" style={{ backgroundColor: "purple", width: "100rem" }}>
+    <Navbar
+      variant="danger"
+      style={{ backgroundColor: "purple", width: "100rem" }}
+    >
       <Nav className="d-flex justify-content-center p-3">
         <Nav.Item style={{ color: "white" }}>
           <Nav.Link href="/">Home</Nav.Link>
@@ -42,7 +45,18 @@ export default function NavBar() {
         )}
         {isAuth && (
           <Nav.Item>
-            <Nav.Link href={"/application"}>Applications</Nav.Link>
+            <Nav.Link
+              href={
+                localStorage.getItem("wsdc_user_data") !== null &&
+                JSON.parse(localStorage.getItem("wsdc_user_data"))[
+                  "is_admin"
+                ] === true
+                  ? "/application"
+                  : "/student-application"
+              }
+            >
+              Applications
+            </Nav.Link>
           </Nav.Item>
         )}
         {isAuth &&

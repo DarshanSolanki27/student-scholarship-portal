@@ -1,6 +1,6 @@
 from django.contrib.auth import password_validation
-from rest_framework import serializers
-from rest_framework.serializers import (ModelSerializer, ValidationError)
+from rest_framework.serializers import (
+    IntegerField, ModelSerializer, ValidationError)
 
 from .models import (Admin, Student, Scholarship, Application)
 from rest_framework.validators import UniqueValidator
@@ -134,7 +134,7 @@ class ApplicationSerializer(ModelSerializer):
     class Meta:
         model = Application
         fields = ['id', 'student', 'scholarship', 'applied', 'status', 'caste',
-                  'program', 'department', 'specialization', 'gender', 'cgpa']
+                  'program', 'department', 'specialization', 'gender', 'cgpa', 'rejection']
 
         extra_kwargs = {
             'applied': {
@@ -170,19 +170,20 @@ class ApplicationSerializer(ModelSerializer):
 
 
 class ApplicationUpdateSerializer(ModelSerializer):
-    admin = serializers.IntegerField()
+    # admin = IntegerField(blank=False)
 
     class Meta:
         model = Application
-        fields = ['id', 'admin', 'status']
+        fields = ['id', 'status']
+        # fields = ['id', 'admin', 'status']
 
-    def validate_admin(self, admin):
-        is_admin = Admin.objects.filter(id=admin)
+    # def validate_admin(self, admin):
+    #     is_admin = Admin.objects.filter(id=admin)
 
-        if not is_admin:
-            raise ValidationError({'Permission denied': 'Admin only feature'})
+    #     if not is_admin:
+    #         raise ValidationError({'Permission denied': 'Admin only feature'})
 
-        return admin
+    #     return admin
 
     def update(self, instance, validated_data):
         instance.status = validated_data.get('status', instance.status)

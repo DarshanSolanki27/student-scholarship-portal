@@ -34,7 +34,7 @@ urlpatterns = [
     path('scholarship/<int:id>',
          ScholarshipApplicationListCreateView.as_view()),
 
+    path('application', ApplicationListView.as_view()),
     path('application/<int:id>/update', UpdateApplicationStatusView.as_view()),
     path('application/<int:id>', StudentApplicationListView.as_view()),
-    path('application', ApplicationListView.as_view()),
 ]

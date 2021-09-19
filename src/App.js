@@ -27,14 +27,10 @@ function App() {
           <Route exact path="/add-scholarship" component={AddScholarship} />
           <Route
             exact
-            path="/application"
-            component={
-              localStorage.getItem("wsdc_user_data") !== null &&
-              localStorage.getItem("wsdc_user_data")["is_admin"] === true
-                ? AdminApplication
-                : StudentApplication
-            }
+            path="/student-application"
+            component={StudentApplication}
           />
+          <Route exact path="/application" component={AdminApplication} />
           <Route path="*">{<h1>404 Not found</h1>}</Route>
         </Switch>
       </BrowserRouter>

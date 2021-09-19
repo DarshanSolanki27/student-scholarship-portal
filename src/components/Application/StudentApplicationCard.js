@@ -66,6 +66,7 @@ export default function StudentApplicationCard({ application }) {
       </Card.Header>
 
       <Card.Body style={{ width: "98%" }}>
+        {application.rejection !== null && <div>*{application.rejection}</div>}
         <div>Caste: {CASTE[application.caste]}</div>
         <div>Program: {PROGRAM[application.program]}</div>
         {application.program === "M" && (

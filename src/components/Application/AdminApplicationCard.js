@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 import { authOptions } from "../../utils/requestOptions";
 
@@ -31,15 +31,29 @@ export default function AdminApplicationCard({ application }) {
   const axios = require("axios");
   const [required, setRequired] = useState({});
 
+  const handleApplicationStatus = (newStatus) => {
+    axios
+      .put(
+        `/api/application/${application.id}/update`,
+        {
+          // admin: JSON.parse(localStorage.getItem("wsdc_user_data"))["id"],
+          status: newStatus,
+        },
+        authOptions(localStorage.getItem("wsdc_at"))
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     axios
       .get(
-        `/api/application/${application.scholarship}`,
+        `/api/scholarship/${application.scholarship}`,
         authOptions(localStorage.getItem("wsdc_at"))
       )
       .then((response) => {
         setRequired(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -83,6 +97,22 @@ export default function AdminApplicationCard({ application }) {
             </div>
           )}
         </div>
+        {application.status === null && (
+          <div>
+            <Button
+              variant="success"
+              onClick={() => handleApplicationStatus(true)}
+            >
+              Accept
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => handleApplicationStatus(false)}
+            >
+              Reject
+            </Button>
+          </div>
+        )}
       </Card.Header>
 
       <div className="d-flex">

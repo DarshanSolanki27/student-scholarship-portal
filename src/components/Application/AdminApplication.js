@@ -13,7 +13,6 @@ export default function AdminApplication() {
       .get(`/api/application`, authOptions(localStorage.getItem("wsdc_at")))
       .then((response) => {
         setApplications(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

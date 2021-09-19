@@ -11,7 +11,7 @@ export default function Home() {
         Welcome to WSDC Student Scholarship Portal!
       </Alert>
       <Alert variant="warning" className="m-5 text-center">
-        - Go Scholarships tab to get a scholarship right now!
+        - Go to Scholarships tab to get a scholarship right now!
       </Alert>
       <Alert variant="secondary" className="m-5 text-center">
         - You can review your scholarship applications in the Applications tab.

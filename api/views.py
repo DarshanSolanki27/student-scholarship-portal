@@ -148,6 +148,7 @@ class ScholarshipApplicationListCreateView(ListCreateAPIView):
 class UpdateApplicationStatusView(UpdateAPIView):
     queryset = Application.objects.all()
     serializer_class = ApplicationUpdateSerializer
+    lookup_field = 'id'
 
     def get_queryset(self):
         return self.queryset.filter(id=self.kwargs['id'])
